@@ -21,6 +21,16 @@ const store = new Vuex.Store({
       }
     ]
   },
+  getters: {
+    doneTodos: function(state){
+      return state.todos.filter(function(todo){
+        return todo.done;
+      });
+    },
+    doneTodosCount: function(state, getters){
+      return getters.doneTodos.length;
+    }
+  },
   mutations: {
     increment(state){
       state.count++;
@@ -61,7 +71,7 @@ const Counter = {
       'count'
     ]),
     doneTodosCount(){
-      return this.$store.state.todos.filter(todo => todo.done).length;
+      return this.$store.getters.doneTodosCount;
     }
   }
 };
