@@ -40,9 +40,11 @@ const Counter = {
   // },
 
   // mapState
-  computed: mapState([
-    'count'
-  ])
+  computed: {
+    ...mapState([
+      'count'
+    ])
+  }
 };
 
 new Vue({
