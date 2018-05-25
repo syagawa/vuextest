@@ -19,12 +19,19 @@ const store = new Vuex.Store({
   }
 });
 
-new Vue({
-  el: "#app",
+const Counter = {
+  template: `<div>{{ count }}</div>`,
   computed: {
     count(){
       return store.state.count;
     }
+  }
+};
+
+new Vue({
+  el: "#app",
+  components: {
+    'counter': Counter
   },
   methods: {
     increment(){
