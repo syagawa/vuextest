@@ -9,6 +9,7 @@
   "author": "syagawa",
   "license": "MIT",
   "dependencies": {
+    "vue": "^2.5.16",
     "vuex": "^3.0.1"
   }
 }
