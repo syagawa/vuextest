@@ -1,0 +1,14 @@
+{
+  "name": "vuextest",
+  "version": "1.0.0",
+  "description": "vuex test",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "syagawa",
+  "license": "MIT",
+  "dependencies": {
+    "vuex": "^3.0.1"
+  }
+}
