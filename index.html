@@ -6,8 +6,15 @@
     </title>
   </head>
   <body>
-    <script type="text/javascript" src='node_modules/vue/dist/vue.min.js'></script>
-    <script type="text/javascript" src='node_modules/vuex/dist/vuex.min.js'></script>
+    <div id="app">
+      <p>{{ count }}</p>
+      <p>
+        <button @click="increment">+</button>
+        <button @click="decrement">-</button>
+      </p>
+    </div>
+    <script type="text/javascript" src='node_modules/vue/dist/vue.js'></script>
+    <script type="text/javascript" src='node_modules/vuex/dist/vuex.js'></script>
     <script type="text/javascript" src='index.js'></script>
   </body>
 </html>
