@@ -7,7 +7,19 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
-    count: 0
+    count: 0,
+    todos: [
+      {
+        id: 1,
+        text: "ABCD",
+        done: false,
+      },
+      {
+        id: 2,
+        text: "ABCD",
+        done: true,
+      }
+    ]
   },
   mutations: {
     increment(state){
@@ -32,7 +44,11 @@ mapState({
 });
 
 const Counter = {
-  template: `<div>{{ count }}</div>`,
+  template: `<div>
+              <div>count: {{ count }}</div>
+              <div>done {{ doneTodosCount }}</div>
+            </div>
+            `,
   // computed: {
   //   count(){
   //     return this.$store.state.count;
@@ -43,7 +59,10 @@ const Counter = {
   computed: {
     ...mapState([
       'count'
-    ])
+    ]),
+    doneTodosCount(){
+      return this.$store.state.todos.filter(todo => todo.done).length;
+    }
   }
 };
 
