@@ -23,13 +23,14 @@ const Counter = {
   template: `<div>{{ count }}</div>`,
   computed: {
     count(){
-      return store.state.count;
+      return this.$store.state.count;
     }
   }
 };
 
 new Vue({
   el: "#app",
+  store,
   components: {
     'counter': Counter
   },
