@@ -14,8 +14,9 @@
         <button @click="add()">add 1</button>
         <button @click="asyncAdd">async</button>
         <button @click="actAB">actAB</button>
-
       </p>
+      <input type="text" v-model="message">
+      <span>{{ message }}</span>
     </div>
     <script type="text/javascript" src='node_modules/vue/dist/vue.js'></script>
     <script type="text/javascript" src='node_modules/vuex/dist/vuex.js'></script>

@@ -44,7 +44,8 @@ const moduleA = {
         text: "ABCD",
         done: true,
       }
-    ]
+    ],
+    message: "hello hello hello"
   },
   getters: {
     doneTodos: function(state){
@@ -78,6 +79,9 @@ const moduleA = {
     gotDataA(state){
     },
     gotDataB(state){
+    },
+    updateMessage(state, payload={message: ""}){
+      state.message = payload.message;
     }
   },
   actions: {
@@ -214,6 +218,17 @@ const app = new Vue({
   components: {
     'counter': Counter
   },
+  computed: {
+    message: {
+      get(){
+        return this.$store.state.a.message;
+      },
+      set(value){
+        console.info(value);
+        this.$store.commit('updateMessage', {message: value});
+      }
+    }
+  },
   methods: {
     increment(){
       store.commit('increment', {amount: Math.floor(Math.random() * 10) + 1});
@@ -230,9 +245,6 @@ const app = new Vue({
     ...mapMutations({
       add: 'increment'
     }),
-    // ...mapActions({
-    //   asyncAdd: "incrementAsync"
-    // })
     asyncAdd(){
       store.dispatch("incrementAsync").then(function(){
         console.info("added async!");
@@ -243,9 +255,13 @@ const app = new Vue({
         console.info("comp actAB");
       });
     }
+    // ,
+    // updateMessage(e){
+    //   store.commit('updateMessage', {message: e.target.value} );
+    // }
   }
 });
 
-app.$set(store.state, 'newProp', 123);
+// app.$set(store.state, 'newProp', 123);
 
 app.obj = { ...app.obj, four: 4};
