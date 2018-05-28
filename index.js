@@ -21,6 +21,15 @@ function getDataB(state){
   });
 }
 
+const testPlugin = function(store){
+  store.subscribe(function(mutation, state){
+    console.info("in plugin", mutation, state);
+    if(mutation.type != "edited"){
+      store.commit("edited");
+    }
+  });
+};
+
 const moduleA = {
   state: {
     count: 0,
@@ -135,10 +144,19 @@ const moduleB = {
 };
 
 const store = new Vuex.Store({
+  state: {
+    edited: false
+  },
   modules: {
     a: moduleA,
     b: moduleB
-  }
+  },
+  mutations: {
+    edited(state){
+      state.edited = true;
+    }
+  },
+  plugins: [testPlugin]
 });
 
 // mapState
