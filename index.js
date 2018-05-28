@@ -29,6 +29,13 @@ const store = new Vuex.Store({
     },
     doneTodosCount: function(state, getters){
       return getters.doneTodos.length;
+    },
+    getTodoById: function(state){
+      return function(id){
+        return state.todos.find(function(todo){
+          return todo.id === id;
+        })
+      }
     }
   },
   mutations: {
