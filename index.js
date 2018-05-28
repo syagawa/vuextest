@@ -39,11 +39,11 @@ const store = new Vuex.Store({
     }
   },
   mutations: {
-    increment(state){
-      state.count++;
+    increment(state, payload={amount: 1}){
+      state.count += payload.amount;
     },
-    decrement(state){
-      state.count--;
+    decrement(state, payload={amount: 1}){
+      state.count -= payload.amount;
     }
   }
 });
@@ -94,10 +94,10 @@ new Vue({
   },
   methods: {
     increment(){
-      store.commit('increment');
+      store.commit('increment', {amount: Math.floor(Math.random() * 10) + 1});
     },
     decrement(){
-      store.commit('decrement');
+      store.commit('decrement', {amount: Math.floor(Math.random() * 10) + 1});
     }
 
   }
