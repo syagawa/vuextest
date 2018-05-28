@@ -97,7 +97,10 @@ new Vue({
       store.commit('increment', {amount: Math.floor(Math.random() * 10) + 1});
     },
     decrement(){
-      store.commit('decrement', {amount: Math.floor(Math.random() * 10) + 1});
+      store.commit({
+        type: 'decrement',
+        amount: Math.floor(Math.random() * 10) + 1
+      });
     }
 
   }
