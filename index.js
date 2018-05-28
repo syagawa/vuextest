@@ -43,7 +43,9 @@ const moduleA = {
         return todo.done;
       });
     },
-    doneTodosCount: function(state, getters){
+    doneTodosCount: function(state, getters, rootState){
+      console.info(state);
+      console.info(rootState);
       return getters.doneTodos.length;
     },
     getTodoById: function(state){
@@ -91,7 +93,7 @@ const moduleA = {
 
 const moduleB = {
   state: {
-    bcount: 123456
+    count: 123456
   }
 };
 
@@ -100,7 +102,6 @@ const store = new Vuex.Store({
     a: moduleA,
     b: moduleB
   }
-
 });
 
 // mapState
