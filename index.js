@@ -53,7 +53,6 @@ const store = new Vuex.Store({
   },
   actions: {
     incrementAsync({ commit }){
-      console.info(commit);
       setTimeout(function(){
         commit('increment');
       }, 1000);
@@ -78,6 +77,9 @@ const mapGetters = Vuex.mapGetters;
 
 // mapMutations
 const mapMutations = Vuex.mapMutations;
+
+//mapActions
+const mapActions = Vuex.mapActions;
 
 const Counter = {
   template: `<div>
@@ -131,9 +133,9 @@ const app = new Vue({
     ...mapMutations({
       add: 'increment'
     }),
-    asyncAdd(){
-      this.$store.dispatch("incrementAsync");
-    }
+    ...mapActions({
+      asyncAdd: "incrementAsync"
+    })
 
   }
 });
