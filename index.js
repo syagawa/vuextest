@@ -21,7 +21,7 @@ function getDataB(state){
   });
 }
 
-const store = new Vuex.Store({
+const moduleA = {
   state: {
     count: 0,
     todos: [
@@ -87,6 +87,20 @@ const store = new Vuex.Store({
     }
 
   }
+};
+
+const moduleB = {
+  state: {
+    bcount: 123456
+  }
+};
+
+const store = new Vuex.Store({
+  modules: {
+    a: moduleA,
+    b: moduleB
+  }
+
 });
 
 // mapState
@@ -116,16 +130,12 @@ const Counter = {
               <div>done {{ doneTodosCount }}</div>
             </div>
             `,
-  // computed: {
-  //   count(){
-  //     return this.$store.state.count;
-  //   }
-  // },
-
   // mapState
   computed: {
     ...mapState({
-      count: 'count'
+      count: function(state){
+        return state.a.count;
+      }
     }),
     ...mapGetters({
       doneTodosCount: 'doneTodosCount'
