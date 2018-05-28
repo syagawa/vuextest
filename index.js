@@ -68,6 +68,9 @@ mapState({
 // mapGetters
 const mapGetters = Vuex.mapGetters;
 
+// mapMutations
+const mapMutations = Vuex.mapMutations;
+
 const Counter = {
   template: `<div>
               <div>count: {{ count }}</div>
@@ -116,7 +119,11 @@ const app = new Vue({
     },
     some(){
       store.commit("SOME_MUTATION");
-    }
+    },
+    ...mapMutations({
+      add: 'increment'
+    })
+
   }
 });
 
