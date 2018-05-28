@@ -92,8 +92,45 @@ const moduleA = {
 };
 
 const moduleB = {
+  namespaced: true,
   state: {
-    count: 123456
+    count: 123456,
+    todos: [
+      {
+        id: 1,
+        text: "ABCD",
+        done: true,
+      },
+      {
+        id: 2,
+        text: "ABCD",
+        done: true,
+      },
+      {
+        id: 2,
+        text: "ABCD",
+        done: true,
+      }
+    ]
+  },
+  getters: {
+    doneTodos: function(state){
+      return state.todos.filter(function(todo){
+        return todo.done;
+      });
+    },
+    doneTodosCount: function(state, getters, rootState){
+      console.info(state);
+      console.info(rootState);
+      return getters.doneTodos.length;
+    },
+    getTodoById: function(state){
+      return function(id){
+        return state.todos.find(function(todo){
+          return todo.id === id;
+        })
+      }
+    }
   }
 };
 
@@ -138,7 +175,7 @@ const Counter = {
         return state.a.count;
       }
     }),
-    ...mapGetters({
+    ...mapGetters('b/', {
       doneTodosCount: 'doneTodosCount'
     })
   }
