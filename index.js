@@ -3,6 +3,8 @@
 // import Vue from 'vue';
 // import Vuex from 'vuex';
 
+const SOME_MUTATION = "SOME_MUTATION";
+
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
@@ -44,6 +46,9 @@ const store = new Vuex.Store({
     },
     decrement(state, payload={amount: 1}){
       state.count -= payload.amount;
+    },
+    [SOME_MUTATION](state){
+      console.info(state);
     }
   }
 });
@@ -108,8 +113,10 @@ const app = new Vue({
         type: 'decrement',
         amount: Math.floor(Math.random() * 10) + 1
       });
+    },
+    some(){
+      store.commit("SOME_MUTATION");
     }
-
   }
 });
 
