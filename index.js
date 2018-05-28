@@ -7,6 +7,20 @@ const SOME_MUTATION = "SOME_MUTATION";
 
 Vue.use(Vuex);
 
+
+function getDataA(state){
+  return new Promise(function(resolve, reject){
+    console.info("A");
+    resolve();
+  });
+}
+function getDataB(state){
+  return new Promise(function(resolve, reject){
+    console.info("B");
+    resolve();
+  });
+}
+
 const store = new Vuex.Store({
   state: {
     count: 0,
@@ -49,14 +63,29 @@ const store = new Vuex.Store({
     },
     [SOME_MUTATION](state){
       console.info(state);
+    },
+    gotDataA(state){
+    },
+    gotDataB(state){
     }
   },
   actions: {
     incrementAsync({ commit }){
-      setTimeout(function(){
-        commit('increment');
-      }, 1000);
+      return new Promise(function(resolve, reject){
+        setTimeout(function(){
+          commit('increment');
+          resolve();
+        }, 1000);
+      });
+    },
+    async actA({commit}){
+      commit("gotDataA", await getDataA());
+    },
+    async actB({dispatch, commit}){
+      await dispatch("actA");
+      commit('gotDataB', await getDataB());
     }
+
   }
 });
 
@@ -133,10 +162,19 @@ const app = new Vue({
     ...mapMutations({
       add: 'increment'
     }),
-    ...mapActions({
-      asyncAdd: "incrementAsync"
-    })
-
+    // ...mapActions({
+    //   asyncAdd: "incrementAsync"
+    // })
+    asyncAdd(){
+      store.dispatch("incrementAsync").then(function(){
+        console.info("added async!");
+      });
+    },
+    actAB(){
+      store.dispatch("actB").then(function(){
+        console.info("comp actAB");
+      });
+    }
   }
 });
 
