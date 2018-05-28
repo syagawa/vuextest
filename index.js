@@ -50,6 +50,14 @@ const store = new Vuex.Store({
     [SOME_MUTATION](state){
       console.info(state);
     }
+  },
+  actions: {
+    incrementAsync({ commit }){
+      console.info(commit);
+      setTimeout(function(){
+        commit('increment');
+      }, 1000);
+    }
   }
 });
 
@@ -122,7 +130,10 @@ const app = new Vue({
     },
     ...mapMutations({
       add: 'increment'
-    })
+    }),
+    asyncAdd(){
+      this.$store.dispatch("incrementAsync");
+    }
 
   }
 });
