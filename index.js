@@ -60,6 +60,9 @@ mapState({
   }
 });
 
+// mapGetters
+const mapGetters = Vuex.mapGetters;
+
 const Counter = {
   template: `<div>
               <div>count: {{ count }}</div>
@@ -74,12 +77,12 @@ const Counter = {
 
   // mapState
   computed: {
-    ...mapState([
-      'count'
-    ]),
-    doneTodosCount(){
-      return this.$store.getters.doneTodosCount;
-    }
+    ...mapState({
+      count: 'count'
+    }),
+    ...mapGetters({
+      doneTodosCount: 'doneTodosCount'
+    })
   }
 };
 
