@@ -86,9 +86,16 @@ const Counter = {
   }
 };
 
-new Vue({
+const app = new Vue({
   el: "#app",
   store,
+  data: {
+    obj: {
+      one: 1,
+      two: 2,
+      three: 3
+    }
+  },
   components: {
     'counter': Counter
   },
@@ -105,3 +112,7 @@ new Vue({
 
   }
 });
+
+app.$set(store.state, 'newProp', 123);
+
+app.obj = { ...app.obj, four: 4};
