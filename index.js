@@ -7,23 +7,28 @@ const SOME_MUTATION = "SOME_MUTATION";
 
 Vue.use(Vuex);
 
-
 function getDataA(state){
+
   return new Promise(function(resolve, reject){
-    console.info("A");
-    resolve();
+    setTimeout(
+      function(){
+        return resolve("return from A");
+      },
+      1000
+    );
   });
+
+
 }
 function getDataB(state){
   return new Promise(function(resolve, reject){
-    console.info("B");
-    resolve();
+    return resolve("return from B");
   });
 }
 
 const testPlugin = function(store){
   store.subscribe(function(mutation, state){
-    console.info("in plugin", mutation, state);
+    // console.info("in plugin", mutation, state);
     if(mutation.type != "edited"){
       store.commit("edited");
     }
@@ -45,7 +50,8 @@ const moduleA = {
         done: true,
       }
     ],
-    message: "hello hello hello"
+    message: "hello hello hello",
+    gotdata: false
   },
   getters: {
     doneTodos: function(state){
@@ -76,9 +82,8 @@ const moduleA = {
     [SOME_MUTATION](state){
       console.info(state);
     },
-    gotDataA(state){
-    },
-    gotDataB(state){
+    gotData(state, str){
+      state.gotdata = str;
     },
     updateMessage(state, payload={message: ""}){
       state.message = payload.message;
@@ -94,11 +99,13 @@ const moduleA = {
       });
     },
     async actA({commit}){
-      commit("gotDataA", await getDataA());
+      console.info("in actA");
+      return await getDataA();
     },
     async actB({dispatch, commit}){
-      await dispatch("actA");
-      commit('gotDataB', await getDataB());
+      const a = await dispatch("actA");
+      console.info(a)
+      commit('gotData', await getDataB());
     }
 
   }
@@ -251,9 +258,11 @@ const app = new Vue({
       });
     },
     actAB(){
-      store.dispatch("actB").then(function(){
-        console.info("comp actAB");
-      });
+      // store.dispatch("actB").then(function(){
+      //   console.info("comp actAB");
+      // });
+      store.dispatch("actB");
+
     }
     // ,
     // updateMessage(e){
