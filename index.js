@@ -212,6 +212,54 @@ const Counter = {
   }
 };
 
+const TestTagObj = {
+  template: `<div>
+              {{ obj_value }}
+            </div>
+            `,
+  // mapState
+  props: [
+    "obj"
+  ],
+  data: function(){
+    return {
+      condition: true,
+    };
+  },
+  computed: {
+    obj_value: function(){
+      if(this.condition && this.obj && this.obj.a && this.obj.a.b){
+        return this.obj.a.b;
+      }
+      return null;
+    }
+  }
+};
+
+const TestTagStr = {
+  template: `<div>
+              {{ str_value }}
+            </div>
+            `,
+  // mapState
+  props: [
+    "str"
+  ],
+  data: function(){
+    return {
+    };
+  },
+  computed: {
+    str_value: function(){
+      if(this.str){
+        return this.str;
+      }
+      return "";
+    }
+  }
+};
+
+
 const app = new Vue({
   el: "#app",
   store,
@@ -220,10 +268,14 @@ const app = new Vue({
       one: 1,
       two: 2,
       three: 3
-    }
+    },
+    objs: [],
+    obj_str: "",
   },
   components: {
-    'counter': Counter
+    'counter': Counter,
+    "test-tag-obj": TestTagObj,
+    "test-tag-str": TestTagStr,
   },
   computed: {
     message: {
@@ -235,6 +287,9 @@ const app = new Vue({
         this.$store.commit('updateMessage', {message: value});
       }
     }
+  },
+  created: function(){
+    window.app = this;
   },
   methods: {
     increment(){
@@ -263,7 +318,24 @@ const app = new Vue({
       // });
       store.dispatch("actB");
 
-    }
+    },
+    makeObjs(){
+      this.objs = [];
+      const len = 5;
+      for(let i = 0; i < len; i++){
+        const value = String(Math.random());
+        
+        const obj = {
+          a: {
+            b: value,
+          }
+        }
+        this.objs.push(obj);
+      }
+    },
+    makeObjForStr(){
+      this.obj_str = String(Math.random());
+    },
     // ,
     // updateMessage(e){
     //   store.commit('updateMessage', {message: e.target.value} );

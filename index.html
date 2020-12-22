@@ -17,6 +17,12 @@
       </p>
       <input type="text" v-model="message">
       <span>{{ message }}</span>
+      <test-tag-obj v-for="obj in objs" :obj="obj"></test-tag-obj>
+      <test-tag-obj :obj="objs[0]"></test-tag-obj>
+      <test-tag-str :str="obj_str"></test-tag-str>
+      <test-tag-str :str="obj_str"></test-tag-str>
+      <test-tag-str :str="obj_str"></test-tag-str>
+
     </div>
     <script type="text/javascript" src='node_modules/vue/dist/vue.js'></script>
     <script type="text/javascript" src='node_modules/vuex/dist/vuex.js'></script>
