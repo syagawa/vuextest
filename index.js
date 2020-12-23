@@ -219,12 +219,16 @@ const TestTagObj = {
             `,
   // mapState
   props: [
-    "obj"
+    "obj",
   ],
   data: function(){
     return {
       condition: true,
+      const_str: "",
     };
+  },
+  mounted: function(){
+    this.const_str = "aaa"
   },
   computed: {
     obj_value: function(){
